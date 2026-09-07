@@ -1,5 +1,6 @@
 # g7-global-font
 
+[![Release](https://img.shields.io/github/v/release/William1607cho/g7-global-font?sort=semver)](https://github.com/William1607cho/g7-global-font/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 A [Gnuboard7](https://github.com/gnuboard/g7) plugin that applies **one custom font
@@ -33,18 +34,35 @@ default font on its own.
 
 ## Installation
 
-```bash
-# 1. Place the plugin
-cp -r g7-global-font /path/to/gnuboard7/plugins/
+### From GitHub (CLI)
 
-# 2. Register the autoloader, then install & activate
+```bash
+cd /path/to/gnuboard7/plugins
+
+# a release tag (recommended)
+curl -L https://github.com/William1607cho/g7-global-font/archive/refs/tags/v1.0.0.tar.gz | tar xz
+mv g7-global-font-1.0.0 g7-global-font
+
+# ...or the latest main
+git clone https://github.com/William1607cho/g7-global-font.git
+
+# then, from the Gnuboard7 root:
+cd ..
 php artisan extension:update-autoload
 php artisan plugin:install g7-global-font
 php artisan plugin:activate g7-global-font
 ```
 
-You can also install it from the admin UI (**Plugins → Install → file upload**) with a
-zip of this repository.
+> If the font does not apply after activation, run
+> `php artisan extension:update-autoload` once more — it rebuilds the cached hook map
+> so the plugin's `core.assets.custom_assets` listener is registered.
+
+### From the admin UI
+
+Download a zip of a
+[release](https://github.com/William1607cho/g7-global-font/releases) (or the repo) and
+install it via **Admin → Plugins → Install → file upload**. The zip's top-level folder
+must be named `g7-global-font`.
 
 ## Usage
 
