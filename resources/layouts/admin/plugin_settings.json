@@ -1,0 +1,585 @@
+{
+    "version": "1.0.0",
+    "layout_name": "plugin_settings",
+    "permissions": [
+        "core.plugins.update"
+    ],
+    "extends": "_admin_base",
+    "meta": {
+        "title": "$t:g7-global-font.settings.title",
+        "description": "$t:g7-global-font.settings.description"
+    },
+    "data_sources": [
+        {
+            "id": "settings",
+            "label_key": "$t:g7-global-font.editor.data_source.settings",
+            "type": "api",
+            "endpoint": "/api/admin/plugins/{{route.identifier}}/settings",
+            "method": "GET",
+            "auto_fetch": true,
+            "auth_required": true,
+            "initLocal": "form",
+            "refetchOnMount": true
+        }
+    ],
+    "slots": {
+        "content": [
+            {
+                "id": "plugin_settings_content",
+                "type": "basic",
+                "name": "Div",
+                "dataKey": "form",
+                "trackChanges": true,
+                "props": {
+                    "className": "admin-page-content-responsive"
+                },
+                "children": [
+                    {
+                        "id": "page_header",
+                        "type": "composite",
+                        "name": "PageHeader",
+                        "props": {
+                            "title": "$t:g7-global-font.settings.title",
+                            "description": "$t:g7-global-font.settings.description",
+                            "backPath": "/admin/plugins",
+                            "backLabel": "$t:admin.plugins.back_to_list"
+                        }
+                    },
+                    {
+                        "id": "notice_banner",
+                        "type": "basic",
+                        "name": "Div",
+                        "props": { "className": "alert-info" },
+                        "children": [
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "props": { "className": "flex gap-3" },
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Icon",
+                                        "props": {
+                                            "name": "circle-info",
+                                            "className": "text-xl text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5"
+                                        }
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "props": { "className": "text-info-soft" },
+                                        "text": "$t:g7-global-font.settings.notice"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "validation_error",
+                        "type": "basic",
+                        "name": "Div",
+                        "if": "{{_local.errors}}",
+                        "props": { "className": "alert-danger" },
+                        "children": [
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "props": { "className": "flex gap-3" },
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Icon",
+                                        "props": {
+                                            "name": "triangle-exclamation",
+                                            "className": "text-xl text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5"
+                                        }
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Div",
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "H3",
+                                                "props": { "className": "text-error-strong" },
+                                                "text": "$t:admin.plugins.settings.validation_error"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "Ul",
+                                                "if": "{{typeof _local.errors === 'object' && Object.keys(_local.errors).length > 0}}",
+                                                "props": { "className": "mt-2 list-disc list-inside space-y-1" },
+                                                "iteration": {
+                                                    "source": "Object.entries(_local.errors ?? {}).flatMap(([field, messages]) => Array.isArray(messages) ? messages : [messages])",
+                                                    "item_var": "message"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "type": "basic",
+                                                        "name": "Li",
+                                                        "props": { "className": "text-error-soft" },
+                                                        "text": "{{message}}"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "settings_form",
+                        "type": "basic",
+                        "name": "Div",
+                        "props": {
+                            "className": "mt-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700"
+                        },
+                        "children": [
+                            {
+                                "id": "settings_fields",
+                                "type": "basic",
+                                "name": "Div",
+                                "props": { "className": "p-6 space-y-6" },
+                                "children": [
+                                    {
+                                        "id": "field_source_type",
+                                        "type": "basic",
+                                        "name": "Div",
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Label",
+                                                "props": { "className": "form-label" },
+                                                "text": "$t:g7-global-font.settings.fields.source_type.label"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "P",
+                                                "props": { "className": "form-hint" },
+                                                "text": "$t:g7-global-font.settings.fields.source_type.hint"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "Select",
+                                                "props": {
+                                                    "name": "source_type",
+                                                    "className": "mt-1"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "type": "basic",
+                                                        "name": "Option",
+                                                        "props": { "value": "upload" },
+                                                        "text": "$t:g7-global-font.settings.fields.source_type.upload"
+                                                    },
+                                                    {
+                                                        "type": "basic",
+                                                        "name": "Option",
+                                                        "props": { "value": "webfont" },
+                                                        "text": "$t:g7-global-font.settings.fields.source_type.webfont"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "field_font_family_name",
+                                        "type": "basic",
+                                        "name": "Div",
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Label",
+                                                "props": { "className": "form-label" },
+                                                "text": "$t:g7-global-font.settings.fields.font_family_name.label"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "P",
+                                                "props": { "className": "form-hint" },
+                                                "text": "$t:g7-global-font.settings.fields.font_family_name.hint"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "Input",
+                                                "props": {
+                                                    "type": "text",
+                                                    "name": "font_family_name",
+                                                    "placeholder": "Noto Sans KR",
+                                                    "className": "mt-1"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "field_webfont_css",
+                                        "type": "basic",
+                                        "name": "Div",
+                                        "if": "{{_local.form.source_type === 'webfont'}}",
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Label",
+                                                "props": { "className": "form-label" },
+                                                "text": "$t:g7-global-font.settings.fields.webfont_css.label"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "P",
+                                                "props": { "className": "form-hint" },
+                                                "text": "$t:g7-global-font.settings.fields.webfont_css.hint"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "Textarea",
+                                                "props": {
+                                                    "name": "webfont_css",
+                                                    "rows": 8,
+                                                    "maxLength": 20000,
+                                                    "placeholder": "@font-face {\n  font-family: 'NexonLv1Gothic';\n  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');\n  font-weight: normal;\n  font-display: swap;\n}",
+                                                    "className": "mt-1 font-mono text-sm resize-y"
+                                                }
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "Div",
+                                                "props": { "className": "mt-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg" },
+                                                "children": [
+                                                    {
+                                                        "type": "basic",
+                                                        "name": "P",
+                                                        "props": { "className": "text-info-soft" },
+                                                        "text": "$t:g7-global-font.settings.fields.webfont_css.note_google"
+                                                    },
+                                                    {
+                                                        "type": "basic",
+                                                        "name": "P",
+                                                        "props": { "className": "text-info-soft mt-1" },
+                                                        "text": "$t:g7-global-font.settings.fields.webfont_css.note_family"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "field_font_upload",
+                                        "type": "basic",
+                                        "name": "Div",
+                                        "if": "{{_local.form.source_type !== 'webfont'}}",
+                                        "props": { "className": "space-y-2" },
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Label",
+                                                "props": { "className": "form-label" },
+                                                "text": "$t:g7-global-font.settings.fields.font_file.label"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "P",
+                                                "props": { "className": "form-hint" },
+                                                "text": "$t:g7-global-font.settings.fields.font_file.hint"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "P",
+                                                "props": { "className": "text-sm text-gray-600 dark:text-gray-400" },
+                                                "text": "$t:g7-global-font.settings.fields.font_file.current {{_local.uploadedFontLabel || _local.form.font_file_id || '—'}}"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "FileInput",
+                                                "props": {
+                                                    "accept": ".woff2,.woff,.ttf,.otf",
+                                                    "buttonText": "$t:common.browse",
+                                                    "placeholder": "$t:g7-global-font.settings.fields.font_file.no_file",
+                                                    "className": "w-full"
+                                                },
+                                                "actions": [
+                                                    {
+                                                        "type": "change",
+                                                        "handler": "setState",
+                                                        "params": {
+                                                            "target": "local",
+                                                            "pendingFontFile": "{{$event.target.value}}",
+                                                            "pendingFontFileName": "{{$event.target.value?.name}}"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "Button",
+                                                "props": {
+                                                    "type": "button",
+                                                    "className": "btn btn-secondary flex-center gap-1.5",
+                                                    "disabled": "{{!_local.pendingFontFile || _local.isUploadingFont}}"
+                                                },
+                                                "actions": [
+                                                    {
+                                                        "type": "click",
+                                                        "handler": "sequence",
+                                                        "actions": [
+                                                            {
+                                                                "handler": "setState",
+                                                                "params": {
+                                                                    "target": "local",
+                                                                    "isUploadingFont": true,
+                                                                    "errors": null
+                                                                }
+                                                            },
+                                                            {
+                                                                "handler": "apiCall",
+                                                                "auth_required": true,
+                                                                "target": "/api/plugins/g7-global-font/admin/fonts",
+                                                                "params": {
+                                                                    "method": "POST",
+                                                                    "contentType": "multipart/form-data",
+                                                                    "body": { "font_file": "{{_local.pendingFontFile}}" }
+                                                                },
+                                                                "onSuccess": [
+                                                                    {
+                                                                        "handler": "setState",
+                                                                        "params": {
+                                                                            "target": "local",
+                                                                            "isUploadingFont": false,
+                                                                            "pendingFontFile": null,
+                                                                            "pendingFontFileName": null,
+                                                                            "uploadedFontLabel": "{{response.data.original_name}}",
+                                                                            "form.font_file_id": "{{String(response.data.id)}}",
+                                                                            "fontChanged": true
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "handler": "toast",
+                                                                        "params": {
+                                                                            "type": "success",
+                                                                            "message": "$t:g7-global-font.settings.upload_success"
+                                                                        }
+                                                                    }
+                                                                ],
+                                                                "onError": [
+                                                                    {
+                                                                        "handler": "setState",
+                                                                        "params": {
+                                                                            "target": "local",
+                                                                            "isUploadingFont": false,
+                                                                            "errors": "{{error.errors}}"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "handler": "toast",
+                                                                        "params": {
+                                                                            "type": "error",
+                                                                            "message": "{{error.message ?? '$t:g7-global-font.settings.upload_error'}}"
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "children": [
+                                                    {
+                                                        "type": "basic",
+                                                        "name": "Icon",
+                                                        "if": "{{_local.isUploadingFont}}",
+                                                        "props": { "name": "spinner", "className": "animate-spin", "size": "sm" }
+                                                    },
+                                                    {
+                                                        "type": "basic",
+                                                        "name": "Span",
+                                                        "text": "{{_local.isUploadingFont ? '$t:g7-global-font.settings.uploading' : '$t:g7-global-font.settings.upload_button'}}"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "guide_section",
+                        "type": "basic",
+                        "name": "Div",
+                        "props": {
+                            "className": "mt-6 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 p-6"
+                        },
+                        "children": [
+                            {
+                                "type": "basic",
+                                "name": "H3",
+                                "props": { "className": "section-heading mb-4" },
+                                "text": "$t:g7-global-font.settings.guide.title"
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Ol",
+                                "props": { "className": "list-decimal list-inside space-y-3" },
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Li",
+                                        "props": { "className": "text-label" },
+                                        "text": "$t:g7-global-font.settings.guide.step1"
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Li",
+                                        "props": { "className": "text-label" },
+                                        "text": "$t:g7-global-font.settings.guide.step2"
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Li",
+                                        "props": { "className": "text-label" },
+                                        "text": "$t:g7-global-font.settings.guide.step3"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "footer_buttons",
+                        "type": "basic",
+                        "name": "Div",
+                        "props": { "className": "sticky-footer-buttons" },
+                        "children": [
+                            {
+                                "id": "cancel_button",
+                                "type": "basic",
+                                "name": "Button",
+                                "props": { "className": "btn btn-secondary" },
+                                "actions": [
+                                    {
+                                        "type": "click",
+                                        "handler": "navigate",
+                                        "params": { "path": "/admin/plugins" }
+                                    }
+                                ],
+                                "children": [
+                                    { "type": "basic", "name": "Span", "text": "$t:common.cancel" }
+                                ]
+                            },
+                            {
+                                "id": "save_button",
+                                "type": "basic",
+                                "name": "Button",
+                                "props": {
+                                    "disabled": "{{(!_local.hasChanges && !_local.fontChanged) || _local.isSaving}}",
+                                    "className": "btn btn-primary flex-center gap-1.5"
+                                },
+                                "actions": [
+                                    {
+                                        "type": "click",
+                                        "handler": "sequence",
+                                        "actions": [
+                                            {
+                                                "handler": "setState",
+                                                "params": {
+                                                    "target": "local",
+                                                    "isSaving": true,
+                                                    "errors": null
+                                                }
+                                            },
+                                            {
+                                                "handler": "apiCall",
+                                                "auth_required": true,
+                                                "target": "/api/admin/plugins/{{route.identifier}}/settings",
+                                                "params": {
+                                                    "method": "PUT",
+                                                    "body": "{{_local.form}}"
+                                                },
+                                                "onSuccess": [
+                                                    {
+                                                        "handler": "setState",
+                                                        "params": {
+                                                            "target": "local",
+                                                            "isSaving": false,
+                                                            "hasChanges": false,
+                                                            "fontChanged": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "handler": "toast",
+                                                        "params": {
+                                                            "type": "success",
+                                                            "message": "$t:admin.plugins.settings.save_success"
+                                                        }
+                                                    },
+                                                    {
+                                                        "handler": "refetchDataSource",
+                                                        "params": { "dataSourceId": "settings" }
+                                                    }
+                                                ],
+                                                "onError": [
+                                                    {
+                                                        "handler": "setState",
+                                                        "params": {
+                                                            "target": "local",
+                                                            "isSaving": false,
+                                                            "errors": "{{error.errors}}"
+                                                        }
+                                                    },
+                                                    {
+                                                        "handler": "toast",
+                                                        "params": {
+                                                            "type": "error",
+                                                            "message": "{{error.message ?? '$t:admin.plugins.settings.save_error'}}"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Icon",
+                                        "if": "{{_local.isSaving}}",
+                                        "props": { "name": "spinner", "className": "spinner-sm" }
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Span",
+                                        "text": "{{_local.isSaving ? '$t:common.saving' : '$t:common.save'}}"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "schema": {
+        "source_type": {
+            "type": "enum",
+            "options": ["upload", "webfont"],
+            "default": "upload",
+            "label": "$t:g7-global-font.settings.fields.source_type.label",
+            "hint": "$t:g7-global-font.settings.fields.source_type.hint"
+        },
+        "font_family_name": {
+            "type": "string",
+            "default": "",
+            "label": "$t:g7-global-font.settings.fields.font_family_name.label",
+            "hint": "$t:g7-global-font.settings.fields.font_family_name.hint"
+        },
+        "font_file_id": {
+            "type": "string",
+            "default": "",
+            "label": "$t:g7-global-font.settings.fields.font_file.label",
+            "hint": "$t:g7-global-font.settings.fields.font_file.hint"
+        },
+        "webfont_css": {
+            "type": "string",
+            "default": "",
+            "label": "$t:g7-global-font.settings.fields.webfont_css.label",
+            "hint": "$t:g7-global-font.settings.fields.webfont_css.hint"
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "editor": {
+        "data_source": {
+            "settings": "전역 폰트 설정"
+        }
+    },
+    "settings": {
+        "title": "전역 폰트",
+        "description": "관리자와 프론트 전역에 적용할 커스텀 폰트를 설정합니다.",
+        "notice": "여기서 지정한 폰트는 관리자와 프론트 양쪽에 동일하게 적용됩니다. 플러그인을 비활성화하면 템플릿 기본 폰트(Pretendard)로 돌아갑니다.",
+        "upload_button": "폰트 업로드",
+        "uploading": "업로드 중…",
+        "upload_success": "폰트 파일을 업로드했습니다. 아래 저장을 눌러 적용하세요.",
+        "upload_error": "폰트 파일 업로드에 실패했습니다.",
+        "fields": {
+            "source_type": {
+                "label": "폰트 공급 방식",
+                "hint": "업로드한 폰트 파일을 쓸지, 외부 웹폰트 CSS 를 쓸지 선택합니다.",
+                "upload": "폰트 파일 업로드",
+                "webfont": "웹폰트 CSS 코드"
+            },
+            "font_family_name": {
+                "label": "폰트 패밀리명",
+                "hint": "CSS 에서 참조할 글꼴 이름입니다. 웹폰트 방식이면 해당 웹폰트가 정의하는 이름과 정확히 일치해야 합니다."
+            },
+            "webfont_css": {
+                "label": "웹폰트 CSS 코드",
+                "hint": "웹폰트 방식일 때 그대로 삽입할 CSS 입니다. 눈누(noonnu) 등에서 제공하는 @font-face 블록 전체를 붙여넣으세요.",
+                "note_google": "Google Fonts 처럼 CSS URL 하나만 있는 경우 @import url('URL주소'); 형태로 감싸서 붙여넣으세요.",
+                "note_family": "위 ‘폰트 패밀리명’ 은 붙여넣은 CSS 의 font-family 값과 정확히 일치해야 폰트가 실제로 적용됩니다."
+            },
+            "font_file": {
+                "label": "폰트 파일",
+                "hint": "otf, ttf, woff, woff2 형식을 지원합니다. 최대 10MB.",
+                "current": "현재 폰트 파일:",
+                "no_file": "선택된 파일 없음"
+            }
+        },
+        "guide": {
+            "title": "사용 안내",
+            "step1": "폰트 공급 방식을 고릅니다. 파일을 직접 올리려면 ‘폰트 파일 업로드’, 눈누·구글 폰트 등 외부 웹폰트를 쓰려면 ‘웹폰트 CSS 코드’ 를 선택합니다.",
+            "step2": "폰트 패밀리명을 입력하고, 방식에 따라 폰트 파일을 업로드하거나 웹폰트 CSS 코드(@font-face 블록 또는 @import)를 붙여넣습니다.",
+            "step3": "저장을 누르면 관리자와 프론트 전역에 폰트가 적용됩니다. CSS 가 로드되지 않거나 패밀리명이 CSS 의 font-family 와 다르면 자동으로 기본 폰트로 폴백합니다."
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "editor": {
+        "data_source": {
+            "settings": "Global font settings"
+        }
+    },
+    "settings": {
+        "title": "Global Font",
+        "description": "Configure a custom font applied across the admin and front-end.",
+        "notice": "The font set here applies identically to both the admin and the front-end. Deactivating the plugin reverts to the template's default font (Pretendard).",
+        "upload_button": "Upload font",
+        "uploading": "Uploading…",
+        "upload_success": "Font file uploaded. Press Save below to apply it.",
+        "upload_error": "Failed to upload the font file.",
+        "fields": {
+            "source_type": {
+                "label": "Font Source",
+                "hint": "Choose whether to use an uploaded font file or external webfont CSS.",
+                "upload": "Upload font file",
+                "webfont": "Webfont CSS code"
+            },
+            "font_family_name": {
+                "label": "Font Family Name",
+                "hint": "The font-family name referenced in CSS. For webfonts it must exactly match the name the webfont defines."
+            },
+            "webfont_css": {
+                "label": "Webfont CSS Code",
+                "hint": "CSS injected verbatim in webfont mode. Paste the whole @font-face block provided by services like noonnu.",
+                "note_google": "If you only have a CSS URL like Google Fonts, wrap it as @import url('address');.",
+                "note_family": "The Font Family Name above must exactly match the font-family value in the pasted CSS for the font to actually apply."
+            },
+            "font_file": {
+                "label": "Font File",
+                "hint": "Supports otf, ttf, woff, woff2. Max 10MB.",
+                "current": "Current font file:",
+                "no_file": "No file selected"
+            }
+        },
+        "guide": {
+            "title": "How to use",
+            "step1": "Pick a font source. Choose 'Upload font file' to upload a file directly, or 'Webfont CSS code' to use an external webfont such as noonnu or Google Fonts.",
+            "step2": "Enter the font family name, then upload a font file or paste the webfont CSS code (an @font-face block or @import) depending on the source.",
+            "step3": "Press Save to apply the font across the admin and front-end. If the CSS fails to load or the family name differs from the CSS's font-family, it automatically falls back to the default font."
+        }
+    }
+}

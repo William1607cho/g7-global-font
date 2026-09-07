@@ -1,0 +1,20 @@
+# Composer
+/vendor/
+
+# Node (only if a build is ever added)
+/node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Local / scratch
+*.bak
+*.bak-*
+*.local
+*.log

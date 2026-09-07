@@ -1,0 +1,21 @@
+{
+    "identifier": "g7-global-font",
+    "vendor": "William Cho",
+    "name": {
+        "ko": "전역 폰트",
+        "en": "Global Font"
+    },
+    "version": "1.0.0",
+    "license": "MIT",
+    "description": {
+        "ko": "관리자와 프론트 전역에 커스텀 폰트를 적용하는 플러그인입니다. 폰트 파일 업로드 또는 웹폰트 CSS(@font-face·@import) 붙여넣기 중 하나를 선택해 사이트 기본 글꼴(--font-sans)을 교체합니다.",
+        "en": "Applies a custom font across the admin and front-end. Choose an uploaded font file or paste webfont CSS (@font-face / @import) to replace the site's base sans-serif font (--font-sans)."
+    },
+    "g7_version": ">=7.0.10",
+    "dependencies": {
+        "modules": {},
+        "plugins": {}
+    },
+    "github_url": "https://github.com/williamcho/g7-global-font",
+    "github_changelog_url": "https://github.com/williamcho/g7-global-font/blob/main/CHANGELOG.md"
+}
