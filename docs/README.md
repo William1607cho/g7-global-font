@@ -1,6 +1,6 @@
 # docs/
 
-Place README screenshots here:
+README assets.
 
-- `screenshot-upload.png` — the settings screen in **Upload font file** mode.
 - `screenshot-webfont.png` — the settings screen in **Webfont CSS code** mode.
+- `screenshot-upload.png` — *(optional)* the settings screen in **Upload font file** mode.

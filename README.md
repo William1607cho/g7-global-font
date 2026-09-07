@@ -105,13 +105,15 @@ table (`g7_global_font_files`) and removes uploaded font files.
 
 ## Screenshots
 
-The admin settings screen (**Admin → Plugins → Global Font → Settings**):
+The admin settings screen (**Admin → Plugins → Global Font → Settings**) in
+webfont-CSS mode — font source selector, font family name, and a CSS textarea for
+pasting an `@font-face` block, with hints for the Google Fonts `@import` wrap and the
+family-name match requirement:
 
-- **Upload mode** — font source selector, font family name, and a file picker with an
-  *Upload font* button (`docs/screenshot-upload.png`).
-- **Webfont CSS mode** — font source selector, font family name, and a CSS textarea
-  pre-filled with an `@font-face` example, plus hints for the Google Fonts `@import`
-  wrap and the family-name match requirement (`docs/screenshot-webfont.png`).
+![Settings — webfont CSS mode](docs/screenshot-webfont.png)
+
+In *Upload* mode the CSS textarea is replaced by a file picker and an *Upload font*
+button.
 
 ## <a name="사용법-한국어"></a>사용법 (한국어)
 
