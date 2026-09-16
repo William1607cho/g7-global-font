@@ -40,8 +40,8 @@ default font on its own.
 cd /path/to/gnuboard7/plugins
 
 # a release tag (recommended)
-curl -L https://github.com/William1607cho/g7-global-font/archive/refs/tags/v1.0.0.tar.gz | tar xz
-mv g7-global-font-1.0.0 g7-global-font
+curl -L https://github.com/William1607cho/g7-global-font/archive/refs/tags/v1.0.1.tar.gz | tar xz
+mv g7-global-font-1.0.1 g7-global-font
 
 # ...or the latest main
 git clone https://github.com/William1607cho/g7-global-font.git

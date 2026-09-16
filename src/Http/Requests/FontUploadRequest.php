@@ -11,6 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * 폰트 파일은 브라우저가 MIME 을 `application/octet-stream` 으로 올려 보내는 일이 흔하다.
  * 그래서 MIME 목록에 octet-stream 을 허용하되, 확장자(`extensions:` 규칙 + 클라이언트
  * 파일명 재검사)로 최종 게이트를 건다.
+ * CFF 방식 OTF는 libmagic이 application/vnd.ms-opentype으로 판별한다.
  */
 class FontUploadRequest extends FormRequest
 {
@@ -45,7 +46,8 @@ class FontUploadRequest extends FormRequest
                 'mimetypes:font/woff2,font/woff,font/ttf,font/otf,font/sfnt,'
                     .'application/font-woff,application/font-woff2,application/x-font-woff,'
                     .'application/x-font-ttf,application/x-font-truetype,application/x-font-otf,'
-                    .'application/x-font-opentype,application/vnd.ms-fontobject,application/octet-stream',
+                    .'application/x-font-opentype,application/vnd.ms-opentype,application/vnd.ms-fontobject,'
+                    .'application/octet-stream',
                 'max:'.$maxKb,
             ],
         ];
