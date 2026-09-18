@@ -10,6 +10,7 @@ return [
         'required' => '업로드할 폰트 파일이 필요합니다.',
         'invalid_file' => '유효하지 않은 파일입니다.',
         'invalid_extension' => ':allowed 형식의 폰트 파일만 업로드할 수 있습니다.',
+        'invalid_signature' => '파일 내용이 .:extension 폰트 형식이 아닙니다. 확장자만 바꾼 파일은 업로드할 수 없습니다.',
         'too_large' => '파일 크기가 허용 용량(:max MB)을 초과합니다.',
         'succeeded' => '폰트 파일을 업로드했습니다.',
         'failed' => '폰트 파일 업로드에 실패했습니다.',

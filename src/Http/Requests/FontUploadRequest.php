@@ -4,13 +4,15 @@ namespace Plugins\G7\Global\Font\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Plugins\G7\Global\Font\Support\FontSignature;
 
 /**
  * 전역 폰트 파일 업로드 검증.
  *
  * 폰트 파일은 브라우저가 MIME 을 `application/octet-stream` 으로 올려 보내는 일이 흔하다.
- * 그래서 MIME 목록에 octet-stream 을 허용하되, 확장자(`extensions:` 규칙 + 클라이언트
- * 파일명 재검사)로 최종 게이트를 건다.
+ * 그래서 MIME 목록에 octet-stream 을 허용하되, 두 층으로 최종 게이트를 건다.
+ *   1. 확장자 — `extensions:` 규칙 + 클라이언트 파일명 재검사
+ *   2. 파일 내용 — 선두 4바이트가 그 확장자의 sfnt 계열 매직인지 ({@see FontSignature})
  * CFF 방식 OTF는 libmagic이 application/vnd.ms-opentype으로 판별한다.
  */
 class FontUploadRequest extends FormRequest
@@ -54,7 +56,10 @@ class FontUploadRequest extends FormRequest
     }
 
     /**
-     * 확장자 최종 재검사 — 클라이언트 파일명 기준.
+     * 확장자 최종 재검사(클라이언트 파일명 기준) + 파일 내용 시그니처 검사.
+     *
+     * 시그니처 검사는 확장자가 허용 목록에 있을 때만 한다 — 확장자부터 틀리면
+     * 확장자 오류 하나만 돌려준다.
      */
     public function withValidator(Validator $validator): void
     {
@@ -72,6 +77,19 @@ class FontUploadRequest extends FormRequest
                     'font_file',
                     __('g7-global-font::messages.upload.invalid_extension', [
                         'allowed' => implode(', ', self::ALLOWED_EXTENSIONS),
+                    ])
+                );
+
+                return;
+            }
+
+            $path = $file->isValid() ? $file->getRealPath() : false;
+
+            if ($path === false || ! FontSignature::matches($ext, $path)) {
+                $validator->errors()->add(
+                    'font_file',
+                    __('g7-global-font::messages.upload.invalid_signature', [
+                        'extension' => $ext,
                     ])
                 );
             }

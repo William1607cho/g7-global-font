@@ -2,7 +2,7 @@
     "name": "William1607cho/g7-global-font",
     "description": "Global font plugin for Gnuboard7 — apply a custom font (uploaded file or webfont CSS) across the admin and front-end.",
     "type": "library",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "MIT",
     "authors": [
         {
