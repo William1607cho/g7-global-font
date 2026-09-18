@@ -40,8 +40,8 @@ default font on its own.
 cd /path/to/gnuboard7/plugins
 
 # a release tag (recommended)
-curl -L https://github.com/William1607cho/g7-global-font/archive/refs/tags/v1.0.1.tar.gz | tar xz
-mv g7-global-font-1.0.1 g7-global-font
+curl -L https://github.com/William1607cho/g7-global-font/archive/refs/tags/v1.0.2.tar.gz | tar xz
+mv g7-global-font-1.0.2 g7-global-font
 
 # ...or the latest main
 git clone https://github.com/William1607cho/g7-global-font.git
@@ -74,6 +74,10 @@ Open **Admin → Plugins → Global Font → Settings**
 1. Set **Font source** to *Upload font file*.
 2. Enter a **Font family name** (any name you like — it is what `--font-sans` will use).
 3. Choose an `.otf` / `.ttf` / `.woff` / `.woff2` file (max 10 MB) and press **Upload font**.
+   The file's contents must match its extension (the first bytes are checked for the
+   WOFF2 / WOFF / TrueType / OpenType signature); a file that was merely renamed is rejected.
+   The Apple `true` and TrueType Collection `ttcf` variants of `.ttf` are accepted by the
+   signature check but have not been verified with real font files.
 4. Press **Save**. The font is now applied everywhere.
 
 ### Font source: Webfont CSS
@@ -138,6 +142,8 @@ button.
 **관리자 → 플러그인 → 전역 폰트 → 설정** 으로 이동합니다.
 
 - **폰트 파일 업로드**: 패밀리명을 입력하고 `otf/ttf/woff/woff2` 파일(최대 10MB)을 올린 뒤 저장.
+  파일 내용이 확장자에 맞는 폰트 형식인지 확인하므로, 확장자만 바꾼 파일은 올라가지 않습니다.
+  `.ttf` 의 Apple `true`/`ttcf` 형식은 실물 파일로 검증하지 않았습니다.
 - **웹폰트 CSS 코드**: 패밀리명을 입력하고, 눈누 등에서 제공하는 `@font-face` 블록 전체를
   붙여넣거나, Google Fonts 처럼 CSS URL 하나만 있으면 `@import url('주소');` 형태로 감싸서
   붙여넣은 뒤 저장. **패밀리명은 붙여넣은 CSS 의 `font-family` 값과 정확히 일치해야** 합니다.
